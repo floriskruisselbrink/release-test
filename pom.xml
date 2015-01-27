@@ -18,6 +18,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<scm>
+		<connection>scm:git://github.com/vloris/release-test.git</connection>
+		<developerConnection>scm:git://github.com/vloris/release-test.git</developerConnection>
+		<url>https://github.com/vloris/release-test</url>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

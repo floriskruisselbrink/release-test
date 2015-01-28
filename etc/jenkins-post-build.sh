@@ -7,7 +7,7 @@
 
 if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
 	REPO="https://${USERNAME}:${PASSWORD}@github.com/vloris/release-test.git"
-	START_BRANCH=$(GIT_BRANCH##origin/)
+	START_BRANCH=${GIT_BRANCH##origin/}
 	RELEASE_BRANCH=release/${MVN_RELEASE_VERSION}
 	MASTER_BRANCH=master
 

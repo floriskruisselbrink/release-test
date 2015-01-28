@@ -9,6 +9,14 @@ function restart_trace {
 	fi
 }
 
+function is_releasebuild {
+	if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 function init_variables {
 	local REPO=$(git config --get remote.origin.url)
 

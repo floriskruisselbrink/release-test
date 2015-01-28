@@ -8,7 +8,7 @@
 DIR=$(cd "$(dirname "$0")" && pwd)
 source $DIR/jenkins-functions.sh
 
-if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
+if is_releasebuild ; then
 	init_variables
 	init_credential_helper
 

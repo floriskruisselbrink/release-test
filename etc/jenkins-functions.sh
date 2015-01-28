@@ -62,7 +62,7 @@ function push_changes {
 
 function init_credential_helper {
 	local REPOSITORY=$(git config --get remote.origin.url)
-	local REPO_PATH=${REPO##https://}
+	local REPO_PATH=${REPOSITORY##https://}
 	local REPO_HOST=${REPO_PATH%%/*}
 
 	stop_trace

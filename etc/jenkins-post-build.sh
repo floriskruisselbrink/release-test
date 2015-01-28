@@ -14,11 +14,13 @@ if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
 	CREDENTIALS="https://${USERNAME}:${PASSWORD}@${HOSTNAME}"
 	PUSH_REPO="https://${USERNAME}@${REPO_PATH}"
 
-cat <<EOF > target/.git-credentials
+	CREDENTIAL_FILE=${WORKSPACE}/target/.git-credentials
+
+cat <<EOF > ${CREDENTIAL_FILE}
 ${CREDENTIALS}
 EOF
 
-	git config credential.helper store --store=target/.git-credentials
+	git config credential.helper "store --store=${CREDENTIAL_FILE}"
 
 	START_BRANCH=${GIT_BRANCH##origin/}
 	RELEASE_BRANCH=release/${MVN_RELEASE_VERSION}
@@ -39,6 +41,6 @@ EOF
 
 	git branch -d ${RELEASE_BRANCH}
 
-	rm target/.git-credentials
+	rm ${CREDENTIAL_FILE}
 	git config --unset credential.helper
 fi

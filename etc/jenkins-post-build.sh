@@ -5,28 +5,16 @@
 # MVN_RELEASE_VERSION=0.4
 # MVN_DEV_VERSION=0.5-SNAPSHOT
 
-set +x
-REPO="https://${USERNAME}:${PASSWORD}@github.com/vloris/release-test.git"
-set -x
-
-function git_push {
-	set +x
-	BRANCH=$1
-
-	if [[ ${BRANCH} == tag ]]; then
-		TAG=$2
-
-		echo git push **** refs/tags/${TAG}
-		git push ${REPO} refs/tags/${TAG}
-	else
-		echo git push **** refs/heads/${BRANCH}:refs/heads/${BRANCH}
-		git push ${REPO} refs/heads/${BRANCH}:refs/heads/${BRANCH}
-	fi
-
-	set -x
-}
-
 if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
+	REPO=$(git config --get remote.origin.url)
+	PUSH_REPO="https://${USERNAME}:${PASSWORD}@${REPO##https://}"
+
+cat <<EOF > target/.git-credentials
+${PUSH_REPO}
+EOF
+
+	git config credential.helper store --store=target/.git-credentials
+
 	START_BRANCH=${GIT_BRANCH##origin/}
 	RELEASE_BRANCH=release/${MVN_RELEASE_VERSION}
 	MASTER_BRANCH=master
@@ -34,15 +22,18 @@ if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
 	git checkout ${MASTER_BRANCH}
 	git merge --no-ff ${RELEASE_BRANCH}
 	git tag -m "Versie ${MVN_RELEASE_VERSION}" v${MVN_RELEASE_VERSION}
-	git_push ${MASTER_BRANCH}
-	git_push tag v${MVN_RELEASE_VERSION}
 
 	git checkout ${START_BRANCH}
 	git merge --no-ff ${RELEASE_BRANCH}
 	mvn versions:set -DnewVersion=${MVN_DEV_VERSION} versions:commit
 	git commit -a -m "Verder op ${MVN_DEV_VERSION}"
 
-	git_push ${START_BRANCH}
+	git push origin refs/heads/${MASTER_BRANCH}:refs/heads/${MASTER_BRANCH}
+	git push origin refs/tags/v${MVN_RELEASE_VERSION}
+	git push origin refs/heads/${START_BRANCH}:refs/heads/${START_BRANCH}
 
 	git branch -d ${RELEASE_BRANCH}
+
+	rm target/.git-credentials
+	git config --unset credential.helper
 fi

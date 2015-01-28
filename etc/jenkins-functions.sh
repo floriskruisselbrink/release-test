@@ -1,3 +1,30 @@
+#
+# Jenkins zorgt voor o.a. de volgende environment-variables:
+#
+# - GIT_BRANCH=origin/develop
+# - GIT_URL=
+# - WORKSPACE=
+# - JOB_URL=
+# - JOB_NAME=release-test
+# - BUILD_URL=
+# - BUILD_TAG=jenkins-release-test-37
+# - BUILD_NUMBER=37
+# - BUILD_ID=2015-01-28_16-24-24
+# - NODE_NAME=jenkins-slave-6
+#
+# - POM_GROUPID=nl.protopics
+# - POM_ARTIFACTID=release-test
+# - POM_VERSION=0.3-SNAPSHOT
+#
+# M2 Release plugin:
+# - IS_M2RELEASEBUILD={true|<unset>}
+# - MVN_ISDRYRUN={true|false}
+# - MVN_RELEASE_VERSION=0.4
+# - MVN_DEV_VERSION=0.5-SNAPSHOT
+#
+# - USERNAME
+# - PASSWORD
+
 function stop_trace {
 	OLD_TRACE=${-//[^x]/}
 	set +x

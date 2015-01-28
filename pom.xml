@@ -20,8 +20,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:ssh://github.com/vloris/release-test.git</connection>
-		<developerConnection>scm:git:ssh://github.com/vloris/release-test.git</developerConnection>
+		<connection>scm:git:https://github.com/vloris/release-test.git</connection>
+		<developerConnection>scm:git:https://github.com/vloris/release-test.git</developerConnection>
 		<url>https://github.com/vloris/release-test</url>
 	</scm>
 

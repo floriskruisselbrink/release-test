@@ -9,18 +9,19 @@
 	</parent>
 
 	<artifactId>release-test</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2</version>
 	<packaging>jar</packaging>
 
 	<name>Jenkins release-automation test project</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<snapshotDependencyAllowed>true</snapshotDependencyAllowed>
 	</properties>
 
 	<scm>
-		<connection>scm:git:ssh://github.com/vloris/release-test.git</connection>
-		<developerConnection>scm:git:ssh://github.com/vloris/release-test.git</developerConnection>
+		<connection>scm:git:https://github.com/vloris/release-test.git</connection>
+		<developerConnection>scm:git:https://github.com/vloris/release-test.git</developerConnection>
 		<url>https://github.com/vloris/release-test</url>
 	</scm>
 
@@ -37,6 +38,9 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-scm-plugin</artifactId>

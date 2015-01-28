@@ -7,18 +7,20 @@
 
 if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
 	REPO=$(git config --get remote.origin.url)
-
 	REPO_PATH=${REPO##https://}
-	HOSTNAME=${REPO_PATH%%/*}
-
-	CREDENTIALS="https://${USERNAME}:${PASSWORD}@${HOSTNAME}"
 	PUSH_REPO="https://${USERNAME}@${REPO_PATH}"
+
+	# Volgende blok code bevat password van de gebruiker, dit niet in jenkins loggen!
+	set +x
+	HOSTNAME=${REPO_PATH%%/*}
+	CREDENTIALS="https://${USERNAME}:${PASSWORD}@${HOSTNAME}"
 
 	CREDENTIAL_FILE=${WORKSPACE}/target/.git-credentials
 
 cat <<EOF > ${CREDENTIAL_FILE}
 ${CREDENTIALS}
 EOF
+	set -x
 
 	git config credential.helper "store --file ${CREDENTIAL_FILE}"
 

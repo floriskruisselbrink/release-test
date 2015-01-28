@@ -7,10 +7,12 @@
 
 if [[ ${IS_M2RELEASEBUILD} == true && ${MVN_ISDRYRUN} == false ]] ; then
 	REPO=$(git config --get remote.origin.url)
-	PUSH_REPO="https://${USERNAME}:${PASSWORD}@${REPO##https://}"
+	HOSTNAME=${REPO##https://}
+	HOSTNAME=${HOSTNAME%%/*}
+	PUSH_REPO="https://${USERNAME}:${PASSWORD}@${HOSTNAME}"
 
 cat <<EOF > target/.git-credentials
-${PUSH_REPO}
+${PUSH_REPO%%}
 EOF
 
 	git config credential.helper store --store=target/.git-credentials

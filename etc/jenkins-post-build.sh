@@ -20,7 +20,7 @@ cat <<EOF > ${CREDENTIAL_FILE}
 ${CREDENTIALS}
 EOF
 
-	git config credential.helper "store --store=${CREDENTIAL_FILE}"
+	git config credential.helper "store --file ${CREDENTIAL_FILE}"
 
 	START_BRANCH=${GIT_BRANCH##origin/}
 	RELEASE_BRANCH=release/${MVN_RELEASE_VERSION}

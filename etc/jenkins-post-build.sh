@@ -14,6 +14,4 @@ if is_releasebuild ; then
 
 	finish_release
 	push_changes
-
-	cleanup_credential_helper
 fi

@@ -74,9 +74,11 @@ EOF
 	restart_trace
 
 	git config credential.helper "store --file ${CREDENTIAL_FILE}"
+
+	trap cleanup_credential_helper EXIT
 }
 
 function cleanup_credential_helper {
-	rm ${CREDENTIAL_FILE}
+	rm -f ${CREDENTIAL_FILE}
 	git config --unset credential.helper
 }

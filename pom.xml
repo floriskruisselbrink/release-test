@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>release-test</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 
 	<name>Jenkins release-automation test project</name>
@@ -47,6 +47,19 @@
 				<version>1.9.2</version>
 				<configuration>
 					<tag>v${project.version}</tag>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m4.3</version>
+				<configuration>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<releaseBranchPrefix>release/</releaseBranchPrefix>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
 				</configuration>
 			</plugin>
 			<plugin>
